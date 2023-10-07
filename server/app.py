@@ -13,7 +13,7 @@ def base64_to_array(base64_str):
     stripped = stripped.replace(" ", "+") # fix '+' being as a space
     image_bytes = base64.b64decode(stripped)
     image = Image.open(io.BytesIO(image_bytes))
-    image_array = np.array(image);
+    image_array = np.array(image)
     flattened_array = image_array[:,:,0]
     normalized_array = flattened_array / 255
     
