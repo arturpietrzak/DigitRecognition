@@ -23,6 +23,7 @@ function App() {
           });
         } else {
           setResponse(null);
+          console.log(response);
         }
       });
   };
@@ -30,12 +31,6 @@ function App() {
   return (
     <main className="page-container">
       <DrawingBox onCheck={handleCheck} />
-      {response !== null ? (
-        <div>
-          Predicted number is {String(response.prediction)} with{" "}
-          {String(response.probability)}% certainty
-        </div>
-      ) : undefined}
     </main>
   );
 }
