@@ -3,7 +3,7 @@ import base64
 from PIL import Image
 import io
 import numpy as np
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
 
 model = tf.keras.models.load_model('./model/digits_recognition')
