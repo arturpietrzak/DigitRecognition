@@ -5,6 +5,7 @@ import io
 import numpy as np
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
+import os
 
 model = tf.keras.models.load_model('./model/digits_recognition')
 
