@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return send_from_directory('./dist/index.html')
+    return send_from_directory('frontend', 'index.html')
