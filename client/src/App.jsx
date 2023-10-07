@@ -7,6 +7,7 @@ function App() {
     fetch("/classify_number", {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -31,8 +32,8 @@ function App() {
       <DrawingBox onCheck={handleCheck} />
       {response !== null ? (
         <div>
-          Predicted number is {response.prediction} with {response.probability}%
-          certainty
+          Predicted number is {String(response.prediction)} with{" "}
+          {String(response.probability)}% certainty
         </div>
       ) : undefined}
     </main>
