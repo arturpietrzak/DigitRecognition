@@ -1,6 +1,6 @@
 from flask import Flask, send_from_directory
 
-aapp = Flask(__name__, static_folder='frontend')
+app = Flask(__name__, static_folder='frontend')
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
