@@ -15,18 +15,26 @@ function App() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setResponse({
-          prediction: res.prediction,
-          probability: res.probability,
-        });
-        console.log(res);
+        if (res.probability <= 0.01) {
+          setResponse({
+            prediction: res.prediction,
+            probability: res.probability,
+          });
+        } else {
+          setResponse(null);
+        }
       });
   };
 
   return (
     <main className="page-container">
       <DrawingBox onCheck={handleCheck} />
-      {response !== null ? response : undefined}
+      {response !== null ? (
+        <div>
+          Predicted number is {response.prediction} with {response.probability}%
+          certainty
+        </div>
+      ) : undefined}
     </main>
   );
 }
