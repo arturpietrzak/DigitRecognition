@@ -42,6 +42,11 @@ def echo():
     
     return response
 
+@app.route('/api/hello', methods=['GET'])
+@cross_origin()
+def echo():
+    return "Gello"
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
