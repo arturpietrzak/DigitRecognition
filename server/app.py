@@ -30,7 +30,7 @@ app = Flask(__name__, static_folder='frontend')
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/api/classify_number', methods=['GET'])
+@app.route('/api/classify_number', methods=['POST'])
 @cross_origin()
 def echo():
     image_base64 = request.json.get('image')
@@ -41,6 +41,11 @@ def echo():
         response = jsonify({'prediction': str(result[0]), 'probability': str(result[1])})
     
     return response
+
+@app.route('/api/test', methods=['POST'])
+@cross_origin()
+def echo():
+    return "Test"
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

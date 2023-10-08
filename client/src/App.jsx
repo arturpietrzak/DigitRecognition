@@ -24,7 +24,7 @@ function App() {
     const resizedBase64 = await resizeImage(base64);
 
     fetch("/api/classify_number", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
