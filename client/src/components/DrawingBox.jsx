@@ -68,20 +68,22 @@ const DrawingBox = ({ onCheck }) => {
           </Stage>
         </div>
       </div>
-      <button
-        onClick={() => {
-          setLines([]);
-        }}
-      >
-        Clear
-      </button>
-      <button
-        onClick={() => {
-          onCheck(stageRef.current.toDataURL());
-        }}
-      >
-        Check
-      </button>
+      <div className="drawing-box__buttons">
+        <button
+          onClick={() => {
+            setLines([]);
+          }}
+        >
+          Clear
+        </button>
+        <button
+          onClick={() => {
+            onCheck(stageRef.current.toDataURL());
+          }}
+        >
+          Check
+        </button>
+      </div>
     </div>
   );
 };

@@ -31,10 +31,8 @@ app = Flask(__name__, static_folder='frontend')
 @app.route('/classify_number', methods=['POST'])
 @cross_origin()
 def echo():
-    image_base64 = request.form.get('image')
-    print(image_base64)
-    print(request.args)
-    print(request.form)
+    image_base64 = request.get_json()['image']
+    print(request.get_json())
     if (image_base64):
         image_array = base64_to_array(image_base64)
         result = get_predicted_number(image_array)
