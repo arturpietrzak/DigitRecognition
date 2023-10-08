@@ -25,12 +25,6 @@ app = Flask(__name__, static_folder='frontend')
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/api/hello', methods=['GET'])
-@cross_origin()
-def echo():
-    return "Gello"
-
-
 @app.route('/api/classify_number', methods=['POST'])
 @cross_origin()
 def echo():
