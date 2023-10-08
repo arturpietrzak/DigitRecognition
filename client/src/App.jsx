@@ -2,7 +2,7 @@ import { useState } from "react";
 import DrawingBox from "./components/DrawingBox";
 
 function App() {
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState(null);
   const handleCheck = (base64) => {
     fetch("/classify_number", {
       method: "POST",
@@ -22,7 +22,7 @@ function App() {
             probability: res.probability,
           });
         } else {
-          setResponse({});
+          setResponse(null);
         }
       });
   };
@@ -30,7 +30,7 @@ function App() {
   return (
     <main className="page-container">
       <DrawingBox onCheck={handleCheck} />
-      {response.probability !== undefined ? (
+      {response !== null ? (
         <div>
           Predicted number is {String(response.prediction)} with{" "}
           {String(response.probability)}% certainty
