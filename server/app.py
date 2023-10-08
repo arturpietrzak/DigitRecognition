@@ -8,6 +8,7 @@ from flask_cors import CORS, cross_origin
 import os
 
 model = tf.keras.models.load_model('./model/digits_recognition')
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 def base64_to_array(base64_str):
     stripped = base64_str.split(',')[1]
@@ -20,23 +21,29 @@ def base64_to_array(base64_str):
     
     return normalized_array
 
-def get_predicted_number(image_array):
-    batch = np.array([image_array])
-    prediction = model.predict(batch)
-    
-    return [np.argmax(prediction[0]), np.max(prediction[0])]
-
 app = Flask(__name__, static_folder='frontend')
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.route('/api/hello', methods=['GET'])
+@cross_origin()
+def echo():
+    return "Gello"
+
 
 @app.route('/api/classify_number', methods=['POST'])
 @cross_origin()
 def echo():
     image_base64 = request.json.get('image')
     response = jsonify({'prediction': str(-1), 'probability': str(-1)})
+    if (image_base64):
+        image_array = base64_to_array(image_base64)
+        batch = np.array([image_array])
+        prediction = model.predict(batch)
+        response = jsonify({'prediction': str(np.argmax(prediction[0])), 'probability': str(np.argmax(prediction[1]))})
     
     return response
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
