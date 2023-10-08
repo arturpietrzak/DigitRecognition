@@ -7,7 +7,7 @@ function App() {
     fetch("/classify_number", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         image: base64,
