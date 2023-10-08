@@ -42,11 +42,6 @@ def echo():
     
     return response
 
-@app.route('/api/test', methods=['POST'])
-@cross_origin()
-def echo():
-    return "Test"
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
