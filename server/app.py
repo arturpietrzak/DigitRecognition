@@ -22,7 +22,6 @@ def base64_to_array(base64_str):
 app = Flask(__name__, static_folder='frontend')
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
-model = tf.keras.models.load_model('./model/digits_recognition')
 
 @app.route('/api/classify_number', methods=['POST'])
 @cross_origin()
@@ -30,7 +29,7 @@ def echo():
     image_base64 = request.json.get('image')
     response = jsonify({'prediction': str(-1), 'probability': str(-1)})
     if (image_base64):
-        print("Yellow")
+        model = tf.keras.models.load_model('./model/digits_recognition')
         image_array = base64_to_array(image_base64)
         batch = np.array([image_array])
         prediction = model.predict(batch)
