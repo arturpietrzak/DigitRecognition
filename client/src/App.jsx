@@ -16,7 +16,7 @@ function App() {
         canvas.height = 28;
         let ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, 28, 28);
-        resolve(canvas.toDataURL("image/jpeg", 0.9));
+        resolve(canvas.toDataURL("image/jpeg", 1));
       };
     });
   };
@@ -24,6 +24,7 @@ function App() {
   const handleCheck = async (base64) => {
     setIsProcessing(true);
     const resizedBase64 = await resizeImage(base64);
+    console.log(resizedBase64);
 
     fetch("https://digit-recognition-zauj.onrender.com/api/classify_number", {
       method: "POST",

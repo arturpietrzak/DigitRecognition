@@ -55,7 +55,7 @@ const DrawingBox = ({ onCheck }) => {
                     key={i}
                     points={line.points}
                     stroke="#fff"
-                    strokeWidth={35}
+                    strokeWidth={40}
                     lineCap="round"
                     bezier="true"
                   />
