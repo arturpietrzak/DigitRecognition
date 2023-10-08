@@ -41,14 +41,78 @@ body {
 }
 
 .drawing-box__canvas {
-  margin-bottom: 1rem;
 }
 
 .drawing-box__buttons {
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
+  background-color: #111;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 button {
   padding: 0.5rem 1rem;
+  background-color: #ffce0b;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  color: black;
+}
+
+.loader {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #fff;
+  left: -100px;
+  box-sizing: border-box;
+  animation: shadowRolling 2s linear infinite;
+}
+
+.bold {
+  color: #ffce0b;
+  font-weight: 700;
+}
+
+@keyframes shadowRolling {
+  0% {
+    box-shadow: 0px 0 #00000000, 0px 0 #00000000, 0px 0 #00000000,
+      0px 0 #00000000;
+  }
+  12% {
+    box-shadow: 100px 0 #ffce0b, 0px 0 #00000000, 0px 0 #00000000,
+      0px 0 #00000000;
+  }
+  25% {
+    box-shadow: 110px 0 #ffce0b, 100px 0 #ffce0b, 0px 0 #00000000,
+      0px 0 #00000000;
+  }
+  36% {
+    box-shadow: 120px 0 #ffce0b, 110px 0 #ffce0b, 100px 0 #ffce0b,
+      0px 0 #00000000;
+  }
+  50% {
+    box-shadow: 130px 0 #ffce0b, 120px 0 #ffce0b, 110px 0 #ffce0b,
+      100px 0 #ffce0b;
+  }
+  62% {
+    box-shadow: 200px 0 #00000000, 130px 0 #ffce0b, 120px 0 #ffce0b,
+      110px 0 #ffce0b;
+  }
+  75% {
+    box-shadow: 200px 0 #00000000, 200px 0 #00000000, 130px 0 #ffce0b,
+      120px 0 #ffce0b;
+  }
+  87% {
+    box-shadow: 200px 0 #00000000, 200px 0 #00000000, 200px 0 #00000000,
+      130px 0 #ffce0b;
+  }
+  100% {
+    box-shadow: 200px 0 #00000000, 200px 0 #00000000, 200px 0 #00000000,
+      200px 0 #00000000;
+  }
 }

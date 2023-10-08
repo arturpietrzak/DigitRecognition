@@ -3,6 +3,7 @@ import DrawingBox from "./components/DrawingBox";
 
 function App() {
   const [response, setResponse] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const resizeImage = (base64) => {
     return new Promise((resolve) => {
@@ -21,9 +22,10 @@ function App() {
   };
 
   const handleCheck = async (base64) => {
+    setIsProcessing(true);
     const resizedBase64 = await resizeImage(base64);
 
-    fetch("/api/classify_number", {
+    fetch("https://digit-recognition-zauj.onrender.com/api/classify_number", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,18 +40,24 @@ function App() {
           prediction: res.prediction,
           probability: res.probability,
         });
+        setIsProcessing(false);
       });
   };
 
   return (
     <main className="page-container">
       <DrawingBox onCheck={handleCheck} />
-      {response && (
+      {response && !isProcessing && (
         <div>
-          Predicted number is {response.prediction} with{" "}
-          {Math.round(response.probability * 10000) / 100}% certainty
+          Predicted number <span className="bold">{response.prediction}</span>{" "}
+          with{" "}
+          <span className="bold">
+            {Math.round(response.probability * 10000) / 100}%
+          </span>{" "}
+          certainty
         </div>
       )}
+      {isProcessing && <span className="loader"></span>}
     </main>
   );
 }
