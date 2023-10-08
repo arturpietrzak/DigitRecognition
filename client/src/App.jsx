@@ -23,7 +23,7 @@ function App() {
   const handleCheck = async (base64) => {
     const resizedBase64 = await resizeImage(base64);
 
-    fetch("http://127.0.0.1:5000/classify_number", {
+    fetch("/api/classify_number", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,8 +46,8 @@ function App() {
       <DrawingBox onCheck={handleCheck} />
       {response && (
         <div>
-          Predicted number is {String(response.prediction)} with{" "}
-          {String(response.probability) * 100}% certainty
+          Predicted number is {response.prediction} with{" "}
+          {Math.round(response.probability * 10000) / 100}% certainty
         </div>
       )}
     </main>
