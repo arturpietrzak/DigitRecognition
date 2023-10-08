@@ -8,7 +8,6 @@ import numpy as np
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
 
-model = tf.keras.models.load_model('./model/digits_recognition')
 
 def base64_to_array(base64_str):
     stripped = base64_str.split(',')[1]
@@ -32,10 +31,11 @@ def echo():
     response = jsonify({'prediction': str(-1), 'probability': str(-1)})
     if (image_base64):
         print("Yellow")
+        model = tf.keras.models.load_model('./model/digits_recognition')
         image_array = base64_to_array(image_base64)
         batch = np.array([image_array])
         prediction = model.predict(batch)
-        # response = jsonify({'prediction': str(np.argmax(prediction[0])), 'probability': str(np.argmax(prediction[1]))})
+        response = jsonify({'prediction': str(np.argmax(prediction[0])), 'probability': str(np.argmax(prediction[1]))})
     
     return response
 
