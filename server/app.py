@@ -8,7 +8,6 @@ import numpy as np
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
 
-
 def base64_to_array(base64_str):
     stripped = base64_str.split(',')[1]
     stripped = stripped.replace(" ", "+") # fix '+' being as a space
@@ -23,6 +22,7 @@ def base64_to_array(base64_str):
 app = Flask(__name__, static_folder='frontend')
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
+model = tf.keras.models.load_model('./model/digits_recognition')
 
 @app.route('/api/classify_number', methods=['POST'])
 @cross_origin()
@@ -31,7 +31,6 @@ def echo():
     response = jsonify({'prediction': str(-1), 'probability': str(-1)})
     if (image_base64):
         print("Yellow")
-        model = tf.keras.models.load_model('./model/digits_recognition')
         image_array = base64_to_array(image_base64)
         batch = np.array([image_array])
         prediction = model.predict(batch)
