@@ -3,38 +3,53 @@ import DrawingBox from "./components/DrawingBox";
 
 function App() {
   const [response, setResponse] = useState(null);
-  const handleCheck = (base64) => {
-    fetch("/classify_number", {
+
+  const resizeImage = (base64) => {
+    return new Promise((resolve) => {
+      let img = new Image();
+      img.src = base64;
+
+      img.onload = () => {
+        let canvas = document.createElement("canvas");
+        canvas.width = 28;
+        canvas.height = 28;
+        let ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, 28, 28);
+        resolve(canvas.toDataURL("image/jpeg", 0.9));
+      };
+    });
+  };
+
+  const handleCheck = async (base64) => {
+    const resizedBase64 = await resizeImage(base64);
+
+    fetch("http://127.0.0.1:5000/classify_number", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        image: base64,
+        image: resizedBase64,
       }),
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.probability <= 0.01) {
-          setResponse({
-            prediction: res.prediction,
-            probability: res.probability,
-          });
-        } else {
-          setResponse(null);
-        }
+        setResponse({
+          prediction: res.prediction,
+          probability: res.probability,
+        });
       });
   };
 
   return (
     <main className="page-container">
       <DrawingBox onCheck={handleCheck} />
-      {response !== null ? (
+      {response && (
         <div>
           Predicted number is {String(response.prediction)} with{" "}
-          {String(response.probability)}% certainty
+          {String(response.probability) * 100}% certainty
         </div>
-      ) : undefined}
+      )}
     </main>
   );
 }

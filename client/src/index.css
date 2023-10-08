@@ -41,10 +41,14 @@ body {
 }
 
 .drawing-box__canvas {
-  scale: 20;
+  margin-bottom: 1rem;
 }
 
 .drawing-box__buttons {
   display: flex;
   justify-content: space-between;
+}
+
+button {
+  padding: 0.5rem 1rem;
 }

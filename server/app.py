@@ -31,16 +31,14 @@ app = Flask(__name__, static_folder='frontend')
 @app.route('/classify_number', methods=['POST'])
 @cross_origin()
 def echo():
-    request_json = request.get_json(force=True)
-    image_base64 = request_json['image']
+    image_base64 = request.json.get('image')
+    response = jsonify({'prediction': str(-1), 'probability': str(-1)})
     if (image_base64):
         image_array = base64_to_array(image_base64)
         result = get_predicted_number(image_array)
         response = jsonify({'prediction': str(result[0]), 'probability': str(result[1])})
-        return response
-    else:
-        response = jsonify({'prediction': 0, 'probability': 0})
-        return response
+    
+    return response
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

@@ -14,21 +14,17 @@ const DrawingBox = ({ onCheck }) => {
   };
 
   const handleMouseMove = (e) => {
-    // no drawing - skipping
     if (!isDrawing.current) {
       return;
     }
+
     const stage = e.target.getStage();
     const point = stage.getPointerPosition();
 
-    // To draw line
     let lastLine = lines[lines.length - 1];
 
     if (lastLine) {
-      // add point
       lastLine.points = lastLine.points.concat([point.x, point.y]);
-
-      // replace last
       lines.splice(lines.length - 1, 1, lastLine);
       setLines(lines.concat());
     }
@@ -43,8 +39,8 @@ const DrawingBox = ({ onCheck }) => {
       <div className="drawing-box">
         <div className="drawing-box__canvas">
           <Stage
-            width={28}
-            height={28}
+            width={560}
+            height={560}
             onMouseDown={handleMouseDown}
             onMousemove={handleMouseMove}
             onMouseup={handleMouseUp}
@@ -53,14 +49,15 @@ const DrawingBox = ({ onCheck }) => {
           >
             <Layer>
               <>
-                <Rect x={0} y={0} width={28} height={28} fill="black"></Rect>
+                <Rect x={0} y={0} width={560} height={560} fill="black"></Rect>
                 {lines.map((line, i) => (
                   <Line
                     key={i}
                     points={line.points}
                     stroke="#fff"
-                    strokeWidth={1}
+                    strokeWidth={35}
                     lineCap="round"
+                    bezier="true"
                   />
                 ))}
               </>
