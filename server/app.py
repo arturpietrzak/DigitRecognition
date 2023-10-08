@@ -1,3 +1,5 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"    
 import tensorflow as tf
 import base64
 from PIL import Image
@@ -5,10 +7,8 @@ import io
 import numpy as np
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
-import os
 
 model = tf.keras.models.load_model('./model/digits_recognition')
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 def base64_to_array(base64_str):
     stripped = base64_str.split(',')[1]
@@ -31,10 +31,11 @@ def echo():
     image_base64 = request.json.get('image')
     response = jsonify({'prediction': str(-1), 'probability': str(-1)})
     if (image_base64):
+        print("Yellow")
         image_array = base64_to_array(image_base64)
         batch = np.array([image_array])
-        prediction = model.predict(batch)
-        response = jsonify({'prediction': str(np.argmax(prediction[0])), 'probability': str(np.argmax(prediction[1]))})
+        # prediction = model.predict(batch)
+        # response = jsonify({'prediction': str(np.argmax(prediction[0])), 'probability': str(np.argmax(prediction[1]))})
     
     return response
 
