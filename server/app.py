@@ -33,8 +33,6 @@ app = Flask(__name__, static_folder='frontend')
 def echo():
     request_json = request.get_json(force=True)
     image_base64 = request_json['image']
-    print(request_json.values())
-    print(request.values())
     if (image_base64):
         image_array = base64_to_array(image_base64)
         result = get_predicted_number(image_array)
