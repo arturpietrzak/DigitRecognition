@@ -27,6 +27,8 @@ def get_predicted_number(image_array):
     return [np.argmax(prediction[0]), np.max(prediction[0])]
 
 app = Flask(__name__, static_folder='frontend')
+CORS(app, resources={r"/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/api/classify_number', methods=['POST'])
 @cross_origin()
