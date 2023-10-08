@@ -34,7 +34,7 @@ def echo():
         print("Yellow")
         image_array = base64_to_array(image_base64)
         batch = np.array([image_array])
-        # prediction = model.predict(batch)
+        prediction = model.predict(batch)
         # response = jsonify({'prediction': str(np.argmax(prediction[0])), 'probability': str(np.argmax(prediction[1]))})
     
     return response
