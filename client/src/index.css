@@ -33,6 +33,7 @@ body {
 }
 
 .drawing-box {
+  position: relative;
   width: 560px;
   height: 560px;
   display: flex;
@@ -41,6 +42,25 @@ body {
 }
 
 .drawing-box__canvas {
+  border-radius: 0.5rem 0.5rem 0 0;
+  overflow: hidden;
+}
+
+.drawing-box__target {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 5rem;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.drawing-box__target__border {
+  height: 100%;
+  width: 100%;
+  border-radius: 2.5rem;
+  border: 2px dashed #ffffff70;
+  box-sizing: border-box;
 }
 
 .drawing-box__buttons {
@@ -65,7 +85,7 @@ button {
   height: 10px;
   border-radius: 50%;
   display: block;
-  margin: 15px auto;
+  margin: 7px auto;
   position: relative;
   color: #fff;
   left: -100px;

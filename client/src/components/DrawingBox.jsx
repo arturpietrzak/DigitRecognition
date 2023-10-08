@@ -64,6 +64,9 @@ const DrawingBox = ({ onCheck }) => {
             </Layer>
           </Stage>
         </div>
+        <div className="drawing-box__target">
+          <div className="drawing-box__target__border"></div>
+        </div>
       </div>
       <div className="drawing-box__buttons">
         <button
