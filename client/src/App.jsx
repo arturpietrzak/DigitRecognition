@@ -24,7 +24,6 @@ function App() {
   const handleCheck = async (base64) => {
     setIsProcessing(true);
     const resizedBase64 = await resizeImage(base64);
-    console.log(resizedBase64);
 
     fetch("https://digit-recognition-zauj.onrender.com/api/classify_number", {
       method: "POST",
@@ -58,6 +57,7 @@ function App() {
           certainty
         </div>
       )}
+      {!response && !isProcessing && <div>Draw a number on the canvas</div>}
       {isProcessing && <span className="loader"></span>}
     </main>
   );

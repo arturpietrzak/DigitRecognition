@@ -22,8 +22,11 @@ def base64_to_array(base64_str):
 app = Flask(__name__, static_folder='frontend')
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
-global model
-model = tf.keras.models.load_model('./model/digits_recognition')
+
+@app.before_first_request
+def get_model():
+    global model
+    model = tf.keras.models.load_model('./model/digits_recognition')
 
 @app.route('/api/classify_number', methods=['POST'])
 def echo():
